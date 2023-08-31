@@ -60,20 +60,6 @@ internal class Program
         Console.WriteLine("Digite a quantidade aulas que possui esse disciplina");
         RecebeCargaHoraria(Console.ReadLine());
         
-        
-        
-
-
-        ////Tentativa de convesão para int
-        //if (int.TryParse(A, out int numero))
-        //{
-        //    Console.WriteLine($"Número digitado: {numero}");
-        //}
-        //else
-        //{
-        //    Console.WriteLine("Entrada inválida. Digite um número inteiro válido.");
-            
-        //}
     }
     public int RecebeCargaHoraria(string input)
     {
