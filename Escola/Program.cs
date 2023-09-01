@@ -13,6 +13,7 @@ internal class Program
     
 
     }
+<<<<<<< Updated upstream
     //todo
     public void CriarDisciplina() {
 
@@ -46,4 +47,6 @@ internal class Program
         return int.Parse(input);
     }
 
+=======
+>>>>>>> Stashed changes
 }
