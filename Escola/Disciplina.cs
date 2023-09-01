@@ -4,51 +4,31 @@ namespace Escola
 {
 	public class Disciplina
 	{
+        // Campos
+		private string _nome { get; set; }
+        private int? _cargaHoraria { get; set; } = null; 
 
-		private string Nome { get; set; }
-        private List<Aluno> AlunosMatriculados { get; set;}
-        private int? CargaHoraria { get; set; } //Quantidade de aulas
-
-        public Disciplina(string nome,
-							int? cargahoraria = null
-                            )
-		{
-            Console.WriteLine("Criando estãncia de disciplina...\n");
-            Nome = nome;
-			CargaHoraria = cargahoraria;
-            AlunosMatriculados = new List<Aluno>();
-            
-        }
-
-        //Adiciona aluno a disciplina
-        public void AddAluno(Aluno A)
+        // Propriedades
+        public string Nome
         {
-            AlunosMatriculados.Add(A);
-        }
+            get => _nome;
 
-        //Sobreescrita de métodos getters e setters
-        public int? GetCargaHoraria
+            set => _nome = value;
+        }
+            //Carga horaria só pode ser 40 ou 80 horas 
+        public int? CargaHoraria
         {
-            get
-            {
-                if (CargaHoraria.Equals(null))
-                {
-                    Console.WriteLine("ERRO DE PROCESSAMENTO: " +
-                        "Carga horária não atribuida a disciplina\n");
-                    return null;
-                }
-                else
-                {
-                    return CargaHoraria;
-                }
-            }
+            get => _cargaHoraria;
             set
             {
+                // Verdadeiro caso seja diferente de 40 ou 80
                 bool V1 = value != 40;
                 bool V2 = value != 80;
+
                 if (V1 || V2)
                 {
-                    Console.WriteLine("Só existem disciplinas com 40 ou 80 aulas\n" +
+                    Console.WriteLine("Só existem disciplinas com " +
+                        "40 ou 80 aulas\n" +
                         "Favor inserir um valor válido\n");
                 }
                 else
@@ -57,11 +37,14 @@ namespace Escola
                 }
             }
         }
-        public string GetSetNome
-        {
-            get => Nome;
 
-            set => Nome = value;
+        //Construtor
+        public Disciplina(string nome)
+		{
+            Console.WriteLine("Criando estãncia de disciplina...\n");
+            _nome = nome;
+            Console.WriteLine($"Disciplina criada: \n" +
+                $" Nome: {_nome}\n");
         }
     }
 }

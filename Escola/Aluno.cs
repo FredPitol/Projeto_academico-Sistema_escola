@@ -1,148 +1,103 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 
 namespace Escola
 {
-	public class Aluno
-	{      
-        private string Nome { get; set; }
-        private double? Nota1 { get; set; }
-        private double? Nota2 { get; set; }
-		private string Status  { get; set; }
-        private bool SemestreFinalizado { get; set; }
-        private int Faltas { get; set; }
+    public class Aluno
+    {
+        // Campos
+        private string? _nome { get; set; }
+        private double? _nota1 { get; set; } = null;
+        private double? _nota2 { get; set; } = null;
+        private string? _status { get; set; } = "Indefinido";
+        private bool _semestreFinalizado { get; set; } = false;
+        private int _faltas { get; set; } = 0;
+        private Disciplina? _disciplina { get; set; }
 
-        public Aluno(
-                    string nome,
-                    double? nota1 = null,
-                    double? nota2 = null,
-                    string status = "Indefinido",
-					bool isSemestreFinalizado = false,
-                    int faltas = 0
-                    )
-		{
-			Console.WriteLine("Criando estância de aluno...\n");
-			Nome = nome;
-			Nota1 = nota1;
-			Nota2 = nota2;
-			Status = status;
-			SemestreFinalizado = isSemestreFinalizado;
-            Faltas = faltas;
-        }
-
-
-
-		public void AtriNota1(double N)
-		{
-			if(N < 0.0 || N > 10.0)
-			{
-                Console.WriteLine("ERRO - Nota inválida\n");
-            }
-				
-			else
-			{
-                Nota1 = N;
-                Console.WriteLine($"Nota 1 - Valor: {N.ToString("00.00")} \nAdicionada com sucesso!\n");
-            }
-			
-		}
-
-		public void AtriNota2(double N)
-		{
-            if (N < 0.0 || N > 10.0)
-            {
-                Console.WriteLine("ERRO - Nota inválida\n");
-            }
-
-            else
-            {
-                Nota2 = N;
-                Console.WriteLine($"Nota 2 - Valor: {N.ToString("00.00")} \nAdicionado com sucesso!\n");
-            }
-        }
-
-		// Calcula média do aluno nota1 * nota2 / 2
-
-        public double? CalcMed()
+        // Propriedades
+        public string String
         {
-			// Caso uma das notas não for adicionada, printa msg de erro e retorna 0.
-            if (Nota1.Equals(null))
-            {
-				Console.WriteLine("ERRO DE PROCESSAMENTO: Insira nota 1 do aluno\n");
-                return 0.0;
-            }
-            else if (Nota2.Equals(null))
-            {
-                Console.WriteLine("ERRO DE PROCESSAMENTO: Insira nota 2 do aluno\n");
-				return 0.0;
-            }
-
-			// Caso exista os dois valores de nota retorna valor calculado
-            else
-            {
-                double? v = (Nota1 + Nota2) / 2;
-                return v;
-            }
+            get => _nome;
+            set => _nome = value;
         }
 
-		// + 1 na contagem de faltas 
-        public void AtribFalta()
-		{
-			Faltas++;
-            Console.WriteLine("Falta atribuida\n");
-        }
-
-		// - 1 na contagem de faltas
-		public void AbonaFalta()
-		{
-			Faltas--;
-			Console.WriteLine("Falta abonada\n");
-		}
-
-        public void VerificaStatus(Disciplina D)
+        public double? Nota1
         {
-            if (SemestreFinalizado)
+            get => _nota1;
+
+            set
             {
-                if (D.GetCargaHoraria == null)
+                if (value < 0.0 || value > 10.0)
                 {
-                    Console.WriteLine("Carga horária não adicionada na disciplina");
+                    Console.WriteLine("ERRO - Nota inválida\n");
                 }
                 else
                 {
-                    // Recebe carga horaria em formato double
-                    double V1 = (double)D.GetCargaHoraria;
-
-                    // Calcula 25% da quantidade de presenças obrigatórias da disciplina 
-                    double V2 = V1 * 0.25;
-
-                    // Recebe média do aluno
-                    double V3 = (double)CalcMed();
-
-                    if (Faltas <= V2 && V3 >= 7)
-                    {
-                        Status = "Aprovado";
-                        Console.WriteLine($"O aluno{Nome} está {Status} " +
-                            $"Na disciplina{D.GetSetNome}");
-                    }
-                    else
-                    {
-                        Status = "Reprovado";
-                    }
+                    Nota1 = value;
+                    Console.WriteLine($"Nota 1 - Valor: {Nota1} \nAdicionada com sucesso!\n");
                 }
-            }
-            else
-            {
-                Console.WriteLine("Semestre não finalizado");
+
             }
         }
 
-        //todo
-        public double? GetNota1()
+        public double? Nota2
         {
-            return Nota1;
+            get => _nota1;
+
+            set
+            {
+                if (value < 0.0 || value > 10.0)
+                {
+                    Console.WriteLine("ERRO - Nota inválida\n");
+                    return;
+                }
+                Nota2 = value;
+                Console.WriteLine($"Nota 1 - Valor: {Nota2} \n" +
+                    $"Adicionada com sucesso!\n");
+            }
+
         }
 
+        public string? Status => _status;
 
+
+
+        // Retorna True ou False caso tenha as duas notas inseridas
+        public bool SemestreFinalizado
+        {
+            get
+            {
+                if (_nota1.HasValue && _nota2.HasValue)
+                {
+                    _semestreFinalizado = true;
+                    return true;
+                }
+                return false;
+            }
+
+        }
+
+        // Acréscimo ou decrésimo de falta (Inserir Nº Positivo ou negativo)
+        public int Faltas
+        {
+            get => _faltas;
+            set => _faltas += value;
+        }
+
+        public Disciplina? Disciplina
+        {
+            get => _disciplina;
+            set => _disciplina = value;
+        }
+
+        // Construtor
+        public Aluno(string nome)
+        {
+            Console.WriteLine("Criando estância de aluno...\n");
+            _nome = nome;
+        }
+
+        
     }
-
 }

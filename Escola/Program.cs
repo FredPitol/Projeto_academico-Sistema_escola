@@ -5,52 +5,14 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        Aluno a1 = new Aluno("Frederico");
+        a1.Nota1 = 10;
+        Console.WriteLine(a1.Nota1);
 
 
-
-
-
-
-
-
-
-
-
-        ////TESTES
-
-        ////INSTÂNCIA
-        //Aluno a1 = new("Frederico");
-        //Disciplina d1 = new("POO2", 30);
-
-        //// Métod getter
-        //Console.WriteLine("Metodo Getter classe disciplina");
-        //Console.WriteLine(d1.GetSetNome);
-       
-        ////ERRO DE PROCESSAMENTO CalcMed()
-        //double? teste = a1.CalcMed();
-
-        ////RETORNO CalcMed()
-        //Console.WriteLine("Retorno da função CalcMed()");
-        //Console.WriteLine(teste);
-        //Console.WriteLine();
-
-        ////ATRIBUIR NOTA
-        //a1.AtriNota2(2.0);
-        //a1.AtriNota1(3.0);
-
-        ////ATRIBUIR NOTA TRATAMENTO DE EXCEÇÃO - Nº acima do permitido e negativos
-        //a1.AtriNota1(10.1);
-        //a1.AtriNota2(-0.1);
-
-        //teste = a1.CalcMed();
-        //Console.WriteLine($"Média: {teste}");
-        //Console.WriteLine();
-
-
-
+    
 
     }
-
     //todo
     public void CriarDisciplina() {
 
