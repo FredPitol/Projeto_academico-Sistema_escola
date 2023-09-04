@@ -8,8 +8,4 @@ internal class Program
         Aluno a1 = new Aluno("Frederico");
         a1.Nota1 = 10;
         Console.WriteLine(a1.Nota1);
-
-
-    
-
     }
